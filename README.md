@@ -1,6 +1,6 @@
-# GRPCPrometheus
+# GRPC Prometheus middleware
 
-**TODO: Add description**
+[Prometheus](https://prometheus.io/) middleware for [grpc-elixir](https://github.com/tony612/grpc-elixir).
 
 ## Installation
 
@@ -18,4 +18,3 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/grpc_prometheus](https://hexdocs.pm/grpc_prometheus).
-
