@@ -1,0 +1,12 @@
+%{
+  "accept": {:hex, :accept, "0.3.3", "548ebb6fb2e8b0d170e75bb6123aea6ceecb0189bb1231eeadf52eac08384a97", [:rebar3], [], "hexpm"},
+  "cowboy": {:hex, :cowboy, "2.4.0", "f1b72fabe9c8a5fc64ac5ac85fb65474d64733d1df52a26fad5d4ba3d9f70a9f", [:rebar3], [{:cowlib, "~> 2.3.0", [hex: :cowlib, repo: "hexpm", optional: false]}, {:ranch, "~> 1.5.0", [hex: :ranch, repo: "hexpm", optional: false]}], "hexpm"},
+  "cowlib": {:hex, :cowlib, "2.3.0", "bbd58ef537904e4f7c1dd62e6aa8bc831c8183ce4efa9bd1150164fe15be4caa", [:rebar3], [], "hexpm"},
+  "grpc": {:git, "https://github.com/tony612/grpc-elixir.git", "cb63eb8fd66c8ceaa675f098940c752273800a7e", [branch: "support-interceptor"]},
+  "gun": {:hex, :gun, "1.0.0-pre.5", "69a11e259d5bf7fd9b1a74e1aa98e7979c2ae3ebbda27fe1b1c9cb4481f23ba3", [:rebar3], [{:cowlib, "~> 2.1", [hex: :cowlib, repo: "hexpm", optional: false]}, {:ranch, "~> 1.4", [hex: :ranch, repo: "hexpm", optional: false]}], "hexpm"},
+  "prometheus": {:hex, :prometheus, "4.1.0", "3bb851df031c204d1c94bf55fff2ecc9ab834f0236e64c080c9d5945b48d428d", [:mix, :rebar3], [], "hexpm"},
+  "prometheus_ex": {:hex, :prometheus_ex, "3.0.0", "f259bc60de0bb24df9b054a35e6172a189e399227c391545452a1d07df937679", [:mix], [{:prometheus, "~> 4.0", [hex: :prometheus, repo: "hexpm", optional: false]}], "hexpm"},
+  "prometheus_httpd": {:hex, :prometheus_httpd, "2.1.8", "8f4b83712fcff5870f1b6664e6fa4f1c2ee2c72729fb04d46445c77de65802f6", [:rebar3], [{:accept, "~> 0.3.3", [hex: :accept, repo: "hexpm", optional: false]}, {:prometheus, "~> 3.4", [hex: :prometheus, repo: "hexpm", optional: false]}], "hexpm"},
+  "protobuf": {:hex, :protobuf, "0.5.4", "2e1b8eec211aff034ad8a14e3674220b0158bfb9a3c7128ac9d2a1ed1b3724d3", [:mix], [], "hexpm"},
+  "ranch": {:hex, :ranch, "1.5.0", "f04166f456790fee2ac1aa05a02745cc75783c2bfb26d39faf6aefc9a3d3a58a", [:rebar3], [], "hexpm"},
+}

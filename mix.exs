@@ -21,6 +21,9 @@ defmodule GRPCPrometheus.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:prometheus, "~> 4.0", override: true},
+      {:prometheus_ex, "~> 3.0"},
+      {:grpc, github: "tony612/grpc-elixir", branch: "support-interceptor", optional: true}
     ]
   end
 end
