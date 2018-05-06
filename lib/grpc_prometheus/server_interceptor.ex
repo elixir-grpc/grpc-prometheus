@@ -106,8 +106,11 @@ defmodule GRPCPrometheus.ServerInterceptor do
         {:ok, _, _} ->
           GRPC.Status.code_name(0)
 
-        {:error, error} ->
+        {:error, %GRPC.RPCError{} = error} ->
           GRPC.Status.code_name(error.status)
+
+        {:error, _} ->
+          GRPC.Status.code_name(GRPC.Status.unknown())
       end
 
     labels_with_code = [code | labels]
