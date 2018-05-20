@@ -1,7 +1,7 @@
 defmodule GRPCPrometheus.ServerInterceptor do
   use Prometheus.Metric
 
-  @behaviour GRPC.Interceptor
+  @behaviour GRPC.ServerInterceptor
 
   @labels [:grpc_service, :grpc_method, :grpc_type]
   @labels_with_code [:grpc_code | @labels]
