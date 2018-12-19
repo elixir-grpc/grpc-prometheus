@@ -23,7 +23,7 @@ defmodule GRPCPrometheus.MixProject do
     [
       {:prometheus, "~> 4.0"},
       {:prometheus_ex, "~> 3.0"},
-      {:grpc, github: "tony612/grpc-elixir", branch: "support-interceptor", optional: true}
+      {:grpc, github: "tony612/grpc-elixir", optional: true}
     ]
   end
 end
