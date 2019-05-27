@@ -88,8 +88,8 @@ defmodule GRPCPrometheus.ServerInterceptor do
         req
       end
 
-    send_reply = fn stream, reply ->
-      stream = interface[:send_reply].(stream, reply)
+    send_reply = fn stream, reply, opts ->
+      stream = interface[:send_reply].(stream, reply, opts)
       Counter.inc(registry: registry, name: :grpc_server_msg_sent_total, labels: labels)
       stream
     end
