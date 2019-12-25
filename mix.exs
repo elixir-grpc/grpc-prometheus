@@ -34,7 +34,8 @@ defmodule GRPCPrometheus.MixProject do
     [
       {:prometheus, "~> 4.0"},
       {:prometheus_ex, "~> 3.0"},
-      {:grpc, ">= 0.0.0", optional: true}
+      {:grpc, ">= 0.0.0", optional: true},
+      {:ex_doc, "~> 0.21", only: :dev, runtime: false}
     ]
   end
 end
