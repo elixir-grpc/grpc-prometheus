@@ -22,7 +22,7 @@ defmodule GRPCPrometheus.MixProject do
   defp package do
     %{
       maintainers: ["Bing Han"],
-      licenses: ["Apache 2"],
+      licenses: ["MIT"],
       links: %{"GitHub" => "https://github.com/elixir-grpc/grpc-prometheus"},
       files: ~w(mix.exs README.md lib LICENSE)
     }
