@@ -63,6 +63,7 @@ defmodule GRPCPrometheus.ClientInterceptor do
           labels: @labels_with_code,
           registry: registry
         )
+
       _ ->
         :ok
     end
@@ -78,35 +79,42 @@ defmodule GRPCPrometheus.ClientInterceptor do
 
     start = if latency, do: System.monotonic_time()
 
-    send_request = if grpc_type == :client_stream || grpc_type == :bidi_stream do
-      fn s, r, opts ->
-        s = interface[:send_request].(s, r, opts)
-        Counter.inc(registry: registry, name: :grpc_client_msg_sent_total, labels: labels)
-        s
+    send_request =
+      if grpc_type == :client_stream || grpc_type == :bidi_stream do
+        fn s, r, opts ->
+          s = interface[:send_request].(s, r, opts)
+          Counter.inc(registry: registry, name: :grpc_client_msg_sent_total, labels: labels)
+          s
+        end
+      else
+        interface[:send_request]
       end
-    else
-      interface[:send_request]
-    end
 
     monitor = {registry, labels, latency, start}
-    recv = if stream.server_stream do
-      stream_recv(monitor, stream)
-    else
-      interface[:recv]
-    end
 
-    interface = interface
-    |> Map.put(:send_request, send_request)
-    |> Map.put(:recv, recv)
+    recv =
+      if stream.server_stream do
+        stream_recv(monitor, stream)
+      else
+        interface[:recv]
+      end
+
+    interface =
+      interface
+      |> Map.put(:send_request, send_request)
+      |> Map.put(:recv, recv)
+
     result = next.(%{stream | __interface__: interface}, req)
 
     if grpc_type == :unary do
-      code = if elem(result, 0) == :ok do
-        GRPC.Status.code_name(0)
-      else
-        {:error, error} = result
-        GRPC.Status.code_name(error.status)
-      end
+      code =
+        if elem(result, 0) == :ok do
+          GRPC.Status.code_name(0)
+        else
+          {:error, error} = result
+          GRPC.Status.code_name(error.status)
+        end
+
       handled_rpc(monitor, code)
     end
 
@@ -114,8 +122,9 @@ defmodule GRPCPrometheus.ClientInterceptor do
   end
 
   defp stream_recv(monitor, %{__interface__: interface}) do
-    fn(s, opts) ->
+    fn s, opts ->
       result = interface[:recv].(s, opts)
+
       if elem(result, 0) == :ok do
         new_enum = new_res_enum(monitor, elem(result, 1))
         put_elem(result, 1, new_enum)
@@ -128,12 +137,17 @@ defmodule GRPCPrometheus.ClientInterceptor do
   end
 
   defp new_res_enum(monitor, enum) do
-    Stream.transform(enum, fn() -> :ok end, fn(elem, acc) ->
-      msg_received(monitor)
-      {[elem], acc}
-    end, fn(_) ->
-      handled_rpc(monitor, GRPC.Status.code_name(0))
-    end)
+    Stream.transform(
+      enum,
+      fn -> :ok end,
+      fn elem, acc ->
+        msg_received(monitor)
+        {[elem], acc}
+      end,
+      fn _ ->
+        handled_rpc(monitor, GRPC.Status.code_name(0))
+      end
+    )
   end
 
   def msg_received({registry, labels, _, _}) do
@@ -141,7 +155,7 @@ defmodule GRPCPrometheus.ClientInterceptor do
   end
 
   def handled_rpc({registry, labels, latency, start}, code) do
-    labels_with_code = [code|labels]
+    labels_with_code = [code | labels]
     Counter.inc(name: :grpc_client_handled_total, labels: labels_with_code)
     track_time(registry, latency, start, labels_with_code)
   end
@@ -173,6 +187,7 @@ defmodule GRPCPrometheus.ClientInterceptor do
           ],
           diff
         )
+
       _ ->
         :ok
     end

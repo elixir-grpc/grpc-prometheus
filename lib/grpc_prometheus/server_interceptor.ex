@@ -63,6 +63,7 @@ defmodule GRPCPrometheus.ServerInterceptor do
           labels: @labels_with_code,
           registry: registry
         )
+
       _ ->
         :ok
     end
@@ -140,6 +141,7 @@ defmodule GRPCPrometheus.ServerInterceptor do
           ],
           diff
         )
+
       _ ->
         :ok
     end
