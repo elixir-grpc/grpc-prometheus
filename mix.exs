@@ -6,6 +6,7 @@ defmodule GRPCPrometheus.MixProject do
       app: :grpc_prometheus,
       version: "0.1.0",
       elixir: "~> 1.4",
+      description: "Prometheus interceptor for gRPC",
       start_permanent: Mix.env() == :prod,
       package: package(),
       deps: deps()
