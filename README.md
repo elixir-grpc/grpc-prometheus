@@ -1,5 +1,9 @@
 # GRPC Prometheus middleware
 
+> :warning: **Deprecation notice**:
+
+This package is deprecated in favor of `:telemetry` support for gRPC v0.6+
+
 [Prometheus](https://prometheus.io/) middleware for [grpc-elixir](https://github.com/tony612/grpc-elixir).
 
 ## Installation
